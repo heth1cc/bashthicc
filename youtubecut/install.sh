@@ -1,1 +1,1 @@
-sudo apt-get install libav-tool youtube-dl
+sudo apt-get install ffmpeg youtube-dl -y
