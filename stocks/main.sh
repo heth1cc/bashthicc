@@ -1,6 +1,8 @@
 #!/bin/bash
 cd "$(dirname ${BASH_SOURCE[0]})"
 
+SYMBOLS=mu,amd,nvda,intc,bzun,jd,^ndxt,^ixic
+
 RED=$(tput setaf 1)
 GRN=$(tput setaf 2)
 YEL=$(tput setaf 3)
@@ -16,7 +18,8 @@ function ctrl_c() {
 }
 
 Refresh(){
-    json=$(curl 'https://api.iextrading.com/1.0/stock/market/batch?symbols=mu,amd&types=price,ohlc&last=1' -s)
+    json=$(curl "https://api.iextrading.com/1.0/stock/market/batch?symbols=${SYMBOLS}&types=price,ohlc&last=1" -s)
+    #json=$(curl "https://api.iextrading.com/1.0/stock/market/batch?symbols=${SYMBOLS}&types=price,ohlc&last=1")
     
     for key in $(jq 'keys[]' <<<$json); do
         key=$(tr -d '"' <<<$key)
@@ -38,7 +41,7 @@ Refresh(){
 
         echo $key $YEL$price'$'$RES $dir$change%$RES
     done
-
+    #echo $(date)
     tput cup 0 0
 }
 

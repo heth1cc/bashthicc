@@ -4,16 +4,22 @@
 SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
+!`::
+    Run %comspec% /c wsl ./stocks/main.sh
+return
+
 !f1::  
     ;doesn't find wsl if windows has a different bit version than autohotkey
-    Run %comspec% /k wsl ./youtubecut/main.sh %clipboard%
-    Run bin\file2clip.exe youtubecut\output.mp4
+    RunWait %comspec% /c wsl ./youtubecut/main.sh %clipboard%
+    Run bin\file2clip.exe youtubecut\output\video.mp4
+    Run, youtubecut\output
 return
 
 !f3::
-    Run bin\file2clip.exe youtubecut\output.mp4
+    Run, youtubecut\output
 return
 
 !f2::
     reload
 return
+
